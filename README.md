@@ -18,19 +18,19 @@ import numpy as np
 
 # voxel_3d is a 3D array with dimension (nx,ny,nz)
 voxel_1d = voxel_grid.flatten()
-'''.
+```
 
 Encode the voxel array with
 
 ```python
 enc = encode(voxel_1d, nx, ny, nz)
-'''.
+```
 
 We can write the encoded data to a file with
 
 ```python
 enc.tofile('encoded.bin')
-'''.
+```
 
 The data are stored as `uint16` values, with alternating values corresponding to runs of 0 or 1. The header of the file contains information about the array dimensions and the first run value. For runs longer than `2^16-1`, four consecutive values `uint16` values are stored. The first is a 0 to indicate the start of a long run. The second value is the number of `2^16` consecutive runs of a given value (0 or 1). The third value is another 0 and the fourth value is the remainder of the long run.
 
@@ -39,5 +39,5 @@ To decode the encoded array, we use
 ```python
 dec = decode(enc)
 dec = np.reshape(dec, (nx,ny,nz))
-'''.
+```
 
